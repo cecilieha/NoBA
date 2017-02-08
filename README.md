@@ -1,5 +1,6 @@
 # NoBA
 R-programs for the Nordic and Barents Seas Atlantis
+NB!!!!! all your island boxes need to have temperature/salinity either set to 0 or another value, otherwise they'll get NaN values, which atlantis cannot be run with.
 NB!!! the forcing files requires these two steps after being created:
 all files (temp, saln, hydro, ice):
 ncrename -d t1,t inputfile.nc outputfile.nc
