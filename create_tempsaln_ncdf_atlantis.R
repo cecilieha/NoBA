@@ -391,7 +391,9 @@ ncatt_put(nc_saln,var.t,"dt",86400,prec="double")
 
 #assign variables to file
 ncvar_put(nc_temp,var.temp,temp_nc)
+ncvar_put(nc_temp,var.t,t_tot)
 ncvar_put(nc_saln,var.saln,saln_nc)
+ncvar_put(nc_saln,var.t,t_tot)
 
 nc_close(nc_temp)
 nc_close(nc_saln)
