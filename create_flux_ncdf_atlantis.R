@@ -8,6 +8,8 @@ library(geosphere)
 #using corner information
 #you need a file containing information on the faces of your polygons, where the coordinates are given in lon/lat (the shp file could be used as well). 
 corners <- read.table("/data/NoBaAtlantis/Common_files/corners_neighbours_nordic.txt", header=T)
+#read in depth of each layer in all polygons (adjusted from input values in bLT_physics.csv)
+dz_noba <- read.table("/data/NoBaAtlantis/Common_files/dz_noba.txt", header=T)
 section = 1:nrow(corners)
 
 h_get = c(25,100,200,300, 425, 750, 1200)*-1  # Depth ranges (m) to interpolate currents to
@@ -17,6 +19,7 @@ nlay=length(h_get) # nr of layers in the model
 max_neigh=20 #max nr of neighbours for a polygon
 max_Ni=6 # max nr of timesteps in you roms nc file
 daymean=5 #NB!! Check this in your ROMS files, this is for the NoBa model - GISS_AOM
+lvar=c('l1','l2','l3','l4','l5','l6','l7')
 # calculate on subset instead of whole area - reduces the computational time 
 #NB - needs to be updated to the specific model
 x1=1
@@ -267,8 +270,8 @@ for (y in year_all){
            if(!is.na(angle_vel[i,km,tm])&angle_vel[i,km,tm]>angle_sec[i,km,tm]) vel_section[i,km,tm]=(-1)*vel_section[i,km,tm]
 
            #compute flux over sections
-           #exchange[i,km,tm]=vel_section[i,km,tm]*(distMeeus(xy[1,],xy[2,])*corners$MeanDepth[i])
-           exchange[i,km,tm]=vel_section[i,km,tm]*(distMeeus(x,y)*corners$MeanDepth[i])
+           exchange[i,km,tm]=vel_section[i,km,tm]*(distMeeus(xy[1,],xy[2,])*dz_noba[[lvar[km]]][which(dz_noba$polygon==corners$Area[i])])
+         
 
            #add hyperdiffusion fix
 	   #hyperdiff[i]=distMeeus(xy[1,],xy[2,])/(corners$Size.km[i]*10e6)
