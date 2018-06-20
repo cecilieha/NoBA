@@ -194,8 +194,8 @@ for (y in year_all){
 
 	          uE=ui*cos(zang_sub[i,j])-vi*sin(zang_sub[i,j])
 	          vN=ui*sin(zang_sub[i,j])+vi*cos(zang_sub[i,j])
-                  uE=ui
-                  vN=vi
+                  #uE=ui
+                  #vN=vi
 
 	          if (Ni > 1) { 
 	              for (km in 1:(Ni-1)) { # Ni = length(h_get), i.e. depth
